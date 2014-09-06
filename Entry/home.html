@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>物联网工程1002班通讯录平台</title>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery.easyui.min.js"></script>
+<link href="css/background.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="all">
+	<div data-options:"region:'center',border:false">
+    	<table id="informations">
+        </table>
+    </div>
+    
+    <div id="MyInfoDialog" style="display:none" align="center">
+    	<form id="editMyInfoForm">
+        	<table style="margin: 10px auto;width: 85%;line-height:26px;" align="center">
+                <tr>
+                	<td>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
+                    <td>
+                    	<input type="text" name="name" readonly="readonly"/>
+                    </td>
+                </tr>
+                <tr>
+                	<td>联系电话：</td>
+                    <td>
+                    	<input type="text" name="phone" id="phone" required="true"/>
+                    </td>
+                </tr>
+                <tr>
+                	<td>QQ：</td>
+                    <td>
+                    	<input type="text" name="qq" id="qq" required="true"/>
+                    </td>
+                </tr>
+                <tr>
+                	<td>公司名称：</td>
+                    <td>
+                    	<input type="text" name="company" id="company"/>
+                    </td>
+                </tr>
+                <tr>
+                	<td>住&nbsp;&nbsp;&nbsp;&nbsp;址：</td>
+                    <td>
+                    	<input type="text" name="address" id="address" required="true"/>
+                    </td>
+                </tr>
+                <tr>
+                	<td>备&nbsp;&nbsp;&nbsp;&nbsp;注：</td>
+                    <td>
+                    	<input type="text" name="description" id="description"/>
+                    </td>
+                </tr>
+                <tr>
+                	<td></td>
+                    <td><span id="errorMsg"></span></td>
+                </tr>
+            </table>
+        </form>
+    </div> 
+    
+    <script>
+		$("#informations").datagrid({
+				url:"getData.php",
+				method:'post',
+				queryParams:{isLogin:'isLogin'},
+				fit:true,
+				pagination:false,
+				pageSize:30,
+				sortName:'id',
+				sortOrder:'asc',
+				isField:'id',
+				fitColumns:true,
+				border:false,
+				nowrap:false,
+				onRowContentMenu:function(e,rowIndex,rowData){
+					e.preventDefault();
+				},
+				columns:[[
+					{
+						title : '学号',
+						field : 'no',
+						width : 50
+					},{
+						title : '姓名',
+						field : 'name',
+						width : 50	
+					},{
+						title : '联系电话',
+						field : 'phone',
+						width : 100
+					},{
+						title : 'QQ',
+						field : 'qq',
+						width : 100
+					},{
+						title : '公司名称',
+						field : 'company',
+						width : 200	
+					},{
+						title : '住址',
+						field : 'address',
+						width : 200	
+					},{
+						title : '备注',
+						field : 'description',
+						width : 200
+					}
+				]],
+				toolbar:[{
+					text : '修改本人信息',
+					handler : function(){
+						editMyInfoDialog();	
+					}
+				}]
+		});
+		
+		function editMyInfoDialog(){
+			$("#editMyInfoForm").find("input[name='name']").val("/*后台传递过来的用户名对应的人的姓名*/");
+			$("#MyInfoDialog").dialog("open");
+		}
+		
+		$("#MyInfoDialog").show().dialog({
+			title : '修改个人信息',
+			width : 450,
+			height : 500,
+			closed : false,
+			cache : false,
+			modal : true,
+			resizable : true,
+			buttons : [{
+				text : '确定',
+				handler : function(){
+					var phone = $("#phone").val();
+					var qq = $("#qq").val();
+					var company = $("#company").val();
+					var add = $("#address").val();
+					var desc = $("#description").val();
+					if(phone.length == 0){
+						$("#errorMsg").text("请输入手机号").css("color","red");
+						return false;
+					}
+					if(qq.length == 0){
+						$("#errorMsg").text("请输入QQ号").css("color","red");
+						return false;	
+					}
+					if(add.length == 0){
+						$("#errorMsg").text("请输入地址").css("color","red");
+						return false;	
+					}
+					$.ajax({
+						type : "POST",
+						url  : "update.php",
+						data : {"phone":phone,"qq":qq,"company":company,"add":add,"desc":desc},
+						cache: false,
+						dataType:"json",
+						success : function(r){
+							if(r & r.success){
+								$("#MyInfoDialog").dialog("close");
+								$.messager.show({
+									title : "提示",
+									msg : r.msg
+								});
+								$("#MyInfoDialog").find("input[type=='text']").val("");
+								$("#informations").datagrid("load",{});
+							}else{
+								$("#errorMsg").text(r.msg).css("color","red");	
+							}
+						}
+					});
+				}
+			},{
+				text : '取消',
+				handler : function(){
+					$("#MyInfoDialog").dialog("close");
+				}
+			}]
+		}).dialog("close");
+	</script>
+</body>
+</html>
