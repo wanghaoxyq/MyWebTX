@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>登录</title>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery.easyui.min.js"></script>
+<link href="css/background.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="all">
+	<form action="checkLogin.php" method="post">
+    	<div class="easyui-layout">
+            	<table id="login">
+                	<tr>
+                    	<th colspan="2" align="left">登录</th>
+                    </tr>
+                	<tr>
+                    	<td class="input" align="right">用户名：</td>
+                        <td><input type="text" name="username" required="true" id="username" class="easyui-validatebox"/></td>
+                    </tr>
+                    <tr>
+                    	<td class="input" align="right">密&nbsp;&nbsp;码：</td>
+                        <td><input type="password" name="pwd" required="true" id="pwd" class="easyui-validatebox"/></td>
+                    </tr>
+                    <tr>
+                    	<td colspan="2" align="center">
+                        	<input type="submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;录"/>
+                            &nbsp;&nbsp;
+                            <button type="button">忘记密码</button>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+    </form>
+</body>
+</html>
