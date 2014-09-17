@@ -1,6 +1,10 @@
 @charset "utf-8";
 /* CSS Document */
-#all{
-	border : solid 1px #cce8cf;
+body{
+	width:auto;
+	margin:40px auto;
+	font-family:SimSun-ExtB;
+	font-size:14px;
 	background-color:#cce8cf;
+	color:#444;
 }

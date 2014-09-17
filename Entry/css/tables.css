@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+table{
+	border-collapse:collapse;
+	border-spacing:0;
+	width:100%;	
+}
+.datagrid-view2{
+	border:solid #ccc 1px;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	-webkit-box-shadow:0 1px 1px #ccc;
+	-moz-box-shadow:0 1px 1px #ccc;
+	box-shadow:0 1px 1px #ccc;
+}

@@ -8,8 +8,8 @@
 <link href="css/background.css" rel="stylesheet" type="text/css"/>
 </head>
 
-<body id="all">
-	<form action="checkLogin.php" method="post">
+<body>
+	<form action="javascript:void(0)" method="post">
     	<div class="easyui-layout">
             	<table id="login">
                 	<tr>
@@ -17,21 +17,45 @@
                     </tr>
                 	<tr>
                     	<td class="input" align="right">用户名：</td>
-                        <td><input type="text" name="username" required="true" id="username" class="easyui-validatebox"/></td>
+                        <td><input type="text" name="username" required id="username" class="easyui-validatebox"/></td>
                     </tr>
                     <tr>
                     	<td class="input" align="right">密&nbsp;&nbsp;码：</td>
-                        <td><input type="password" name="pwd" required="true" id="pwd" class="easyui-validatebox"/></td>
+                        <td><input type="password" name="pwd" required id="pwd" class="easyui-validatebox"/></td>
+                    </tr>
+                    <tr>
+                    	<td colspan="2" align="center">
+                        	<span id="errorMsg"></span>
+                        </td>
                     </tr>
                     <tr>
                     	<td colspan="2" align="center">
                         	<input type="submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;录"/>
                             &nbsp;&nbsp;
-                            <button type="button">忘记密码</button>
+                            <button type="button" id="button">忘记密码</button>
                         </td>
                     </tr>
                 </table>
         </div>
     </form>
+    
+    <script>
+		$(document).ready(function(e) {
+            $("#errorMsg").text("");
+			$("#username").focus();
+			$("#button").click(function(){
+				var username = $("#username").val();
+				var pwd = $("#pwd").val();
+				$.ajax({
+					url : "checkLogin.php",
+					dataType : "json",
+					data : {"username":username,"pwd":pwd},
+					success : function(response){
+						$("#errorMsg").text(r.msg);
+					}
+				});
+			});
+        });
+	</script>
 </body>
 </html>

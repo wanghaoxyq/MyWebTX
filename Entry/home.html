@@ -6,9 +6,10 @@
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/jquery.easyui.min.js"></script>
 <link href="css/background.css" rel="stylesheet" type="text/css"/>
+<link href="css/tables.css" rel="stylesheet" type="text/css"/>
 </head>
 
-<body id="all">
+<body>
 	<div data-options:"region:'center',border:false">
     	<table id="informations">
         </table>
@@ -20,19 +21,19 @@
                 <tr>
                 	<td>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
                     <td>
-                    	<input type="text" name="name" readonly="readonly"/>
+                    	<input type="text" name="name" id="name" readonly/>
                     </td>
                 </tr>
                 <tr>
                 	<td>联系电话：</td>
                     <td>
-                    	<input type="text" name="phone" id="phone" required="true"/>
+                    	<input type="text" name="phone" id="phone" required/>
                     </td>
                 </tr>
                 <tr>
                 	<td>QQ：</td>
                     <td>
-                    	<input type="text" name="qq" id="qq" required="true"/>
+                    	<input type="text" name="qq" id="qq" required/>
                     </td>
                 </tr>
                 <tr>
@@ -44,7 +45,7 @@
                 <tr>
                 	<td>住&nbsp;&nbsp;&nbsp;&nbsp;址：</td>
                     <td>
-                    	<input type="text" name="address" id="address" required="true"/>
+                    	<input type="text" name="address" id="address" required/>
                     </td>
                 </tr>
                 <tr>
